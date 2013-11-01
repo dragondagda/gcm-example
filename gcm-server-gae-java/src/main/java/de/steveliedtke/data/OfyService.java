@@ -9,6 +9,7 @@ public class OfyService {
 	static {
         factory().register(Device.class);
         factory().register(Property.class);
+        factory().register(ChromeUser.class);
     }
 
     public static Objectify ofy() {

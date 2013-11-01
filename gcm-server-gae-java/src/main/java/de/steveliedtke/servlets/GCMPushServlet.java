@@ -15,8 +15,10 @@ import com.google.appengine.api.taskqueue.TaskHandle;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import de.steveliedtke.data.ChromeUserDAO;
 import de.steveliedtke.data.DeviceDAO;
 import de.steveliedtke.gcm.GCMAndroidSender;
+import de.steveliedtke.gcm.GCMChromeSender;
 
 @Singleton
 public class GCMPushServlet extends HttpServlet{
@@ -27,10 +29,18 @@ public class GCMPushServlet extends HttpServlet{
 	private static final long serialVersionUID = 705333067225388914L;
 	
 	@Inject
-	private GCMAndroidSender gcmSender;
+	private GCMAndroidSender gcmAndroidSender;
+	
+	@Inject
+	private GCMChromeSender gcmChromeSender;
 	
 	@Inject
 	private DeviceDAO deviceDAO;
+	
+	@Inject
+	private ChromeUserDAO chromeUserDAO;
+	
+	// TODO check size of message
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -42,7 +52,9 @@ public class GCMPushServlet extends HttpServlet{
 		if(!taskResults.isEmpty()){
 			final String message = String.valueOf(taskResults.get(0).getPayload());
 			final List<String> registrationIds = deviceDAO.findAllRegistrationIds(); 
-			gcmSender.sendSyncPayload(message, registrationIds);
+			gcmAndroidSender.sendSyncPayload(message, registrationIds);
+			final List<String> userChannelIds = chromeUserDAO.findAllUserChannelIds();
+			gcmChromeSender.sendMessage(message, userChannelIds);
 			queue.deleteTask(taskResults.get(0).getName());
 		}
 	}
