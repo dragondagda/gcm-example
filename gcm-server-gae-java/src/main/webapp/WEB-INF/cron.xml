@@ -2,9 +2,8 @@
 <cronentries> 
 	  <cron>
 	    <url>/cron</url>
-	    <description>Push next message</description>
-	    <!-- change that to every minute -->
-	    <schedule>every day 04:00</schedule>
+	    <description>Push next message every 5 minutes</description>
+	    <schedule>every 5 minutes</schedule>
 	    <timezone>Europe/Berlin</timezone>
 	  </cron>
 </cronentries>

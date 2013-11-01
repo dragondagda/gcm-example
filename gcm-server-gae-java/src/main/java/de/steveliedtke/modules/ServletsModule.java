@@ -2,6 +2,7 @@ package de.steveliedtke.modules;
 
 import com.google.inject.servlet.ServletModule;
 
+import de.steveliedtke.servlets.AdminServlet;
 import de.steveliedtke.servlets.GCMAndroidServlet;
 import de.steveliedtke.servlets.GCMChromeServlet;
 import de.steveliedtke.servlets.GCMPushServlet;
@@ -19,5 +20,8 @@ public class ServletsModule extends ServletModule {
 		// TODO make this only accessible by cron
 		serve("/cron").with(GCMPushServlet.class);
 		// TODO admin function to set the gcm api key
+		
+		// jsps
+		serve("/admin").with(AdminServlet.class);
 	}
 }

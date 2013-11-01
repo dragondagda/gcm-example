@@ -2,3 +2,5 @@
 /gcm-server-gae-java/target
 /gcm-server-gae-java/.classpath
 /gcm-server-gae-java/.project
+/gcm-client-android/bin
+/gcm-client-android/gen

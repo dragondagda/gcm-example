@@ -15,7 +15,7 @@
 	</filter-mapping>
 
 	<listener>
-		<listener-class>de.hackerspacebremen.modules.MyGuiceServletContextListener</listener-class>
+		<listener-class>de.steveliedtke.modules.MyGuiceServletContextListener</listener-class>
 	</listener>
     
     

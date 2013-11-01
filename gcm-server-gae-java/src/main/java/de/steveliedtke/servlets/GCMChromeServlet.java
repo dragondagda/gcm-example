@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import de.steveliedtke.data.ChromeUserDAO;
 
+@Singleton
 public class GCMChromeServlet extends HttpServlet{
 
 	/**

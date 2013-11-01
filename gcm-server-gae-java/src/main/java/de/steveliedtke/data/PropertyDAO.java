@@ -8,7 +8,7 @@ import com.googlecode.objectify.Key;
 public class PropertyDAO {
 
 	public String findValueByKey(final String key){
-		final Property property = ofy().load().type(Property.class).filter("key", key).first().now();
+		final Property property = this.findByKey(key);
 		final String result;
 		if(property==null){
 			result = null;
@@ -16,6 +16,10 @@ public class PropertyDAO {
 			result = property.getValue();
 		}
 		return result;
+	}
+	
+	public Property findByKey(final String key){
+		return ofy().load().type(Property.class).filter("key", key).first().now();
 	}
 	
 	public Property save(final Property property){
