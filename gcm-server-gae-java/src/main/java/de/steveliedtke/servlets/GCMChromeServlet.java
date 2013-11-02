@@ -31,7 +31,7 @@ public class GCMChromeServlet extends HttpServlet{
 		if(userChannelId==null || userChannelId.isEmpty()){
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		}else{
-			if(requestURI.equals("gcm/chrome/register")){
+			if(requestURI.equals("/gcm/chrome/register")){
 				userDAO.create(userChannelId);
 			}else{
 				userDAO.delete(userChannelId);

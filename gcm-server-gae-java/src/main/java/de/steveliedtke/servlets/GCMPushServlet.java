@@ -50,7 +50,7 @@ public class GCMPushServlet extends HttpServlet{
 		final List<TaskHandle> taskResults = queue.leaseTasks(1, TimeUnit.SECONDS, 1);
 		
 		if(!taskResults.isEmpty()){
-			final String message = String.valueOf(taskResults.get(0).getPayload());
+			final String message = new String(taskResults.get(0).getPayload(), "UTF-8");
 			final List<String> registrationIds = deviceDAO.findAllRegistrationIds(); 
 			gcmAndroidSender.sendSyncPayload(message, registrationIds);
 			final List<String> userChannelIds = chromeUserDAO.findAllUserChannelIds();

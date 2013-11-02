@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "GCM Example",
+  "version": "1.0.1",
+  "description": "This extension demonstrates the usage of GCM.",
+  "icons": {
+      "128": "images/icon_128.png",
+      "16": "images/icon_16.png",
+      "24": "images/icon.png"
+  },
+  "permissions": [ "notifications", "pushMessaging", "https://dragondagda-gcm.appspot.com/gcm/chrome/*" ],
+  "app": {
+      "background": {
+         "scripts": [ "jquery.js","background.js" ]
+      }
+   }
+}

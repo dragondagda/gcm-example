@@ -29,27 +29,31 @@ public final class GCMAndroidSender {
 	}
 	
 	public void sendPayload(final String message, final List<String> registrationIds){
-		Sender sender = new Sender(getApiKey());
-		Message gcmMessage = new Message.Builder().addData("payload", message).build();
-		try {
-			final MulticastResult result = sender.send(gcmMessage, registrationIds, 5);
-		} catch (IOException e) {
-			// TODO how handle IOException
+		if(registrationIds!=null && !registrationIds.isEmpty()){
+			Sender sender = new Sender(getApiKey());
+			Message gcmMessage = new Message.Builder().addData("payload", message).build();
+			try {
+				final MulticastResult result = sender.send(gcmMessage, registrationIds, 5);
+			} catch (IOException e) {
+				// TODO how handle IOException
+			}
+			
+			// TODO check results (maybe unregistrate some)
 		}
-		
-		// TODO check results (maybe unregistrate some)
 	}
 	
 	public void sendSyncPayload(final String message, final List<String> registrationIds){
-		Sender sender = new Sender(getApiKey());
-		Message gcmMessage = new Message.Builder().addData("payload", message).collapseKey("0").build();
-		try {
-			final MulticastResult result = sender.send(gcmMessage, registrationIds, 5);
-		} catch (IOException e) {
-			// TODO how handle IOException
+		if(registrationIds != null && !registrationIds.isEmpty()){
+			Sender sender = new Sender(getApiKey());
+			Message gcmMessage = new Message.Builder().addData("payload", message).collapseKey("0").build();
+			try {
+				final MulticastResult result = sender.send(gcmMessage, registrationIds, 5);
+			} catch (IOException e) {
+				// TODO how handle IOException
+			}
+			
+			// TODO check results (maybe unregistrate some)
 		}
-		
-		// TODO check results (maybe unregistrate some)
 	}
 	
 	public void sendSyncPayload(final String message, final String registrationId){

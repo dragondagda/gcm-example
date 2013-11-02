@@ -1,6 +1,7 @@
 package de.steveliedtke.servlets;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +21,11 @@ public class GCMAndroidServlet extends HttpServlet{
 	 */
 	private static final long serialVersionUID = -3272097623898787903L;
 	
+	/**
+     * static attribute used for logging.
+     */
+    private static final Logger logger = Logger.getLogger(GCMAndroidServlet.class.getName());
+	
 	@Inject
 	private DeviceDAO deviceDAO;
 
@@ -27,11 +33,12 @@ public class GCMAndroidServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		final String requestURI = req.getRequestURI();
+		logger.info("requestURI: " + requestURI);
 		final String registrationId = req.getParameter("registrationId");
 		if(registrationId==null || registrationId.isEmpty()){
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		}else{
-			if(requestURI.equals("gcm/android/register")){
+			if(requestURI.equals("/gcm/android/register")){
 				deviceDAO.create(registrationId);
 			}else{
 				deviceDAO.delete(registrationId);

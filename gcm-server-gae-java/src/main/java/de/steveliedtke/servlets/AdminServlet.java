@@ -35,16 +35,23 @@ public class AdminServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		final String gcmKey = req.getParameter("gcm_key");
+		final String gcmClientId = req.getParameter("gcm_clientid");
+		final String gcmClientSecret = req.getParameter("gcm_clientsecret");
 		
-		Property property = propertyDAO.findByKey("gcm.api.key");
-		if(property == null){
-			property = new Property();
-			property.setKey("gcm.api.key");
-			
-		}
-		property.setValue(gcmKey);
-		propertyDAO.save(property);
+		saveProperty("gcm.api.key", gcmKey);
+		saveProperty("gcm.client.id", gcmClientId);
+		saveProperty("gcm.client.secret", gcmClientSecret);
 		
 		req.getRequestDispatcher("/admin.jsp").forward(req, resp);
+	}
+
+	private void saveProperty(final String key, final String value) {
+		Property property = propertyDAO.findByKey(key);
+		if(property == null){
+			property = new Property();
+			property.setKey(key);
+		}
+		property.setValue(value);
+		propertyDAO.save(property);
 	}
 }
